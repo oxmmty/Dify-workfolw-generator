@@ -1,12 +1,14 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Upload, Loader, AlertCircle, Info } from 'lucide-react';
 import {
 	uploadFile,
 	runWorkflow,
 	getWorkflowRunDetail,
+	createManuscriptAndUpdateUsage,
+	checkUsageLimit,
 } from '@/app/actions/actions';
 import { ManuscriptOutput } from './manuscript-output';
 
@@ -16,6 +18,11 @@ export function FileUpload() {
 	const [error, setError] = useState<string | null>(null);
 	const [result, setResult] = useState<any | null>(null);
 	const router = useRouter();
+	const [usageStatus, setUsageStatus] = useState<{
+		canGenerate: boolean;
+		used: number;
+		limit: number;
+	} | null>(null);
 
 	const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		if (e.target.files) {
@@ -23,29 +30,97 @@ export function FileUpload() {
 		}
 	};
 
+	useEffect(() => {
+		const checkUsage = async () => {
+			try {
+				const status = await checkUsageLimit();
+				setUsageStatus(status);
+			} catch (err) {
+				console.error('Error checking usage:', err);
+				setError('Failed to check usage limit');
+			}
+		};
+
+		checkUsage();
+	}, []);
+
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
 		if (!file) return;
 
-		setIsLoading(true);
-		setError(null);
-		setResult(null);
-
+		// Check usage limit before processing
 		try {
+			const status = await checkUsageLimit();
+			setUsageStatus(status);
+
+			if (!status.canGenerate) {
+				setError(
+					`Usage limit reached (${status.used}/${status.limit}). Please upgrade your plan to continue.`
+				);
+				return;
+			}
+
+			setIsLoading(true);
+			setError(null);
+			setResult(null);
+
 			const formData = new FormData();
 			formData.append('file', file);
 			formData.append('user', 'test-user');
 
 			const uploadResult = await uploadFile(formData);
-			const workflowResult = await runWorkflow(uploadResult.id, 'test-user');
+			console.log('Upload result:', uploadResult);
 
+			const workflowResult = await runWorkflow(uploadResult.id, 'test-user');
+			console.log('Workflow result:', workflowResult);
+
+			let finalResult;
 			if (workflowResult.status === 'running') {
-				const finalResult = await pollWorkflowResult(
-					workflowResult.workflow_run_id
-				);
-				setResult(finalResult);
+				finalResult = await pollWorkflowResult(workflowResult.workflow_run_id);
 			} else {
-				setResult(workflowResult);
+				finalResult = workflowResult;
+			}
+			console.log('Final result:', finalResult);
+
+			setResult(finalResult);
+
+			if (finalResult?.data?.outputs?.formatted_manuscript) {
+				const manuscriptData = finalResult.data.outputs.formatted_manuscript;
+				console.log('Manuscript data:', manuscriptData);
+
+				if (typeof manuscriptData === 'string') {
+					const lines = manuscriptData.split('\n');
+					const title = lines[0].replace(/^#\s*/, '');
+					const content = lines.slice(1).join('\n').trim();
+
+					try {
+						const updatedUser = await createManuscriptAndUpdateUsage(
+							title,
+							content
+						);
+						console.log('Updated user:', updatedUser);
+					} catch (createError) {
+						console.error('Error creating manuscript:', createError);
+						setError('Failed to save manuscript. Please try again.');
+					}
+				} else if (manuscriptData.title && manuscriptData.content) {
+					try {
+						const updatedUser = await createManuscriptAndUpdateUsage(
+							manuscriptData.title,
+							manuscriptData.content
+						);
+						console.log('Updated user:', updatedUser);
+					} catch (createError) {
+						console.error('Error creating manuscript:', createError);
+						setError('Failed to save manuscript. Please try again.');
+					}
+				} else {
+					console.error('Invalid manuscript data:', manuscriptData);
+					setError('Invalid manuscript data received. Please try again.');
+				}
+			} else {
+				console.error('No formatted manuscript in result:', finalResult);
+				setError('Failed to process document. Please try again.');
 			}
 
 			router.refresh();
@@ -84,7 +159,7 @@ export function FileUpload() {
 			</div>
 
 			<div className='h-[calc(100vh-4rem)] flex'>
-				<div className='w-96 border-r bg-white'>
+				<div className='w-96 bg-white'>
 					<div className='h-full flex flex-col'>
 						<div className='p-6'>
 							<h2 className='text-lg font-medium text-gray-800 mb-4'>
@@ -103,7 +178,7 @@ export function FileUpload() {
 												or drag and drop
 											</p>
 											<p className='text-xs text-gray-500'>
-												PDF or TXT (MAX. 15MB)
+												PDF or TXT (MAX. 10MB)
 											</p>
 										</div>
 										<input
@@ -163,13 +238,13 @@ export function FileUpload() {
 				</div>
 
 				<div className='flex-1 overflow-hidden'>
-					<div className='h-full overflow-y-auto px-6 py-6'>
+					<div className='h-full border-[1px] overflow-y-auto px-6 py-6'>
 						{result?.data?.outputs?.formatted_manuscript ? (
 							<ManuscriptOutput
 								manuscript={result.data.outputs.formatted_manuscript}
 							/>
 						) : (
-							<div className='h-full flex items-center justify-center'>
+							<div className='h-ful flex items-center justify-center'>
 								<div className='text-center'>
 									<div className='flex justify-center'>
 										<Upload className='w-12 h-12 text-gray-300' />

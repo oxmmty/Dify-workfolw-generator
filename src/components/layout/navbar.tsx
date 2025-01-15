@@ -115,11 +115,7 @@ export function Navbar() {
 						<div className='hidden md:flex items-center space-x-4'>
 							<SignedIn>
 								<div className='flex items-center space-x-4'>
-									<div className='px-3 py-1 rounded-full bg-blue-50 text-blue-600 text-sm font-medium'>
-										10 Credits
-									</div>
 									<UserButton
-										afterSignOutUrl='/'
 										appearance={{
 											elements: {
 												avatarBox:
