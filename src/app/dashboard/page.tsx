@@ -16,10 +16,10 @@ export default async function Dashboard() {
 							<div className='border-b border-gray-200 bg-gray-50/50'>
 								<div className='px-6 py-4'>
 									<h2 className='text-xl font-semibold text-gray-900'>
-										Generate New Manuscript
+										新しい原稿を生成する
 									</h2>
 									<p className='mt-1 text-sm text-gray-500'>
-										Upload a document to begin the generation process
+										生成プロセスを開始するにはドキュメントをアップロードしてください
 									</p>
 								</div>
 							</div>
@@ -38,10 +38,10 @@ export default async function Dashboard() {
 							<div className='border-b border-gray-200 bg-gray-50/50'>
 								<div className='px-6 py-4'>
 									<h2 className='text-xl font-semibold text-gray-900'>
-										Your Manuscripts
+										あなたの原稿
 									</h2>
 									<p className='mt-1 text-sm text-gray-500'>
-										View and manage your generated manuscripts
+										生成された原稿を表示および管理する
 									</p>
 								</div>
 							</div>
@@ -64,15 +64,14 @@ export default async function Dashboard() {
 											</svg>
 										</div>
 										<h3 className='text-lg font-medium text-gray-900 mb-2'>
-											No manuscripts yet
+											まだ原稿はありません
 										</h3>
 										<p className='text-gray-500 text-sm max-w-sm'>
-											Upload your first document to generate a manuscript. Your
-											generated manuscripts will appear here.
+											最初のドキュメントをアップロードして原稿を作成します。作成された原稿はここに表示されます。
 										</p>
 									</div>
 								) : (
-									<Suspense fallback={<div>Loading manuscripts...</div>}>
+									<Suspense fallback={<div>原稿を読み込んでいます...</div>}>
 										<ManuscriptList manuscripts={manuscripts} />
 									</Suspense>
 								)}

@@ -8,10 +8,10 @@ export default async function UsageInfo() {
 			<div className='bg-blue-50 rounded-lg p-6 border border-blue-100'>
 				<div className='flex items-center justify-between mb-4'>
 					<h3 className='text-lg font-semibold text-gray-900'>
-						Usage Overview
+						使用方法の概要
 					</h3>
 					<span className='text-sm font-medium text-blue-600'>
-						{used} / {limit} manuscripts
+						{used} / {limit} 原稿
 					</span>
 				</div>
 
@@ -25,9 +25,11 @@ export default async function UsageInfo() {
 
 					<div className='flex items-center justify-between text-sm'>
 						<span className='text-gray-600'>
-							{limit - used} manuscripts remaining this month
+							{limit - used} 今月残っている原稿
 						</span>
-						<span className='text-gray-500'>{percentage.toFixed(0)}% used</span>
+						<span className='text-gray-500'>
+							{percentage.toFixed(0)}% 使用済み
+						</span>
 					</div>
 				</div>
 			</div>
@@ -36,8 +38,7 @@ export default async function UsageInfo() {
 		console.error('Error in UsageInfo:', error);
 		return (
 			<div>
-				An error occurred while fetching your usage information. Please try
-				again later.
+				使用状況情報を取得中にエラーが発生しました。しばらくしてからもう一度お試しください。
 			</div>
 		);
 	}

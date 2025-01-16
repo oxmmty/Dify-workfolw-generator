@@ -1,7 +1,7 @@
 'use client';
 
 export default function ErrorPage({
-	error = 'Something went wrong',
+	error = '何か問題が発生しました',
 	reset = () => window.location.reload(),
 }) {
 	return (
@@ -25,7 +25,7 @@ export default function ErrorPage({
 					</div>
 
 					<h1 className='text-center text-2xl font-bold text-gray-900 mb-2'>
-						Oops!
+						おっと！
 					</h1>
 
 					<p className='text-center text-gray-600 mb-6'>{error}</p>
@@ -34,14 +34,14 @@ export default function ErrorPage({
 							onClick={reset}
 							className='w-full bg-red-600 text-white py-2 px-4 rounded-lg hover:bg-red-700 transition-colors duration-200'
 						>
-							Try Again
+							もう一度やり直してください
 						</button>
 
 						<button
 							onClick={() => (window.location.href = '/')}
 							className='w-full bg-gray-50 text-gray-600 py-2 px-4 rounded-lg hover:bg-gray-100 transition-colors duration-200'
 						>
-							Return Home
+							家に帰る
 						</button>
 					</div>
 				</div>
