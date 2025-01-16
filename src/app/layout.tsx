@@ -7,8 +7,8 @@ import AfterSignUpHandler from '@/components/auth/signup-handler';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata = {
-	title: 'ManuscriptAI - Generate Manuscripts',
-	description: 'Generate manuscripts from text or PDF files using AI',
+	title: '原稿AI - 原稿生成',
+	description: 'AIを使用してテキストまたはPDFファイルから原稿を生成する',
 };
 
 export default function RootLayout({

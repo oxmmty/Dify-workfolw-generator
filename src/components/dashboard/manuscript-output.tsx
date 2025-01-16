@@ -5,7 +5,7 @@ interface ManuscriptOutputProps {
 export function ManuscriptOutput({ manuscript }: ManuscriptOutputProps) {
 	return (
 		<div className='mt-4'>
-			<h3 className='text-xl font-bold mb-2'>Generated Manuscript</h3>
+			<h3 className='text-xl font-bold mb-2'>生成された原稿</h3>
 			<div className='prose max-w-none bg-white p-6 rounded-lg shadow'>
 				{manuscript.split('\n').map((paragraph, index) => {
 					if (paragraph.startsWith('**') && paragraph.endsWith('**')) {

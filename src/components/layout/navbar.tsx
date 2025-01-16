@@ -76,8 +76,8 @@ export function Navbar() {
 	}, [isOpen]);
 
 	const navItems = [
-		{ href: '/dashboard', icon: FileText, label: 'Dashboard' },
-		{ href: '/pricing', icon: CreditCard, label: 'Pricing' },
+		{ href: '/dashboard', icon: FileText, label: 'ダッシュボード' },
+		{ href: '/pricing', icon: CreditCard, label: '料金プラン' },
 	];
 
 	return (
@@ -89,16 +89,16 @@ export function Navbar() {
 			>
 				<div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
 					<div className='flex items-center justify-between h-16'>
-						{/* Logo and Brand */}
+						{/* ロゴとブランド */}
 						<div className='flex items-center'>
 							<Link href='/' className='flex items-center space-x-2'>
 								<BookOpen className='h-6 w-6 text-blue-600' />
 								<span className='text-xl font-bold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent'>
-									ManuscriptAI
+									原稿AI
 								</span>
 							</Link>
 
-							{/* Desktop Navigation */}
+							{/* デスクトップナビゲーション */}
 							<SignedIn>
 								<div className='hidden md:flex ml-10 items-center space-x-2'>
 									{navItems.map((item) => (
@@ -111,7 +111,7 @@ export function Navbar() {
 							</SignedIn>
 						</div>
 
-						{/* Desktop Auth Section */}
+						{/* デスクトップ認証セクション */}
 						<div className='hidden md:flex items-center space-x-4'>
 							<SignedIn>
 								<div className='flex items-center space-x-4'>
@@ -126,26 +126,26 @@ export function Navbar() {
 								</div>
 							</SignedIn>
 							<SignedOut>
-								<NavLink href='/pricing'>Pricing</NavLink>
+								<NavLink href='/pricing'>料金プラン</NavLink>
 								<SignInButton mode='modal'>
 									<button className='inline-flex items-center px-4 py-2 rounded-lg text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2'>
-										Sign In
+										ログイン
 									</button>
 								</SignInButton>
 							</SignedOut>
 						</div>
 
-						{/* Mobile Menu Button */}
+						{/* モバイルメニューボタン */}
 						<button
 							onClick={() => setIsOpen(!isOpen)}
 							type='button'
 							className='inline-flex md:hidden items-center justify-center p-2 rounded-lg text-gray-600 hover:text-blue-600 hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500'
 							aria-expanded={isOpen}
 							aria-controls='mobile-menu'
-							aria-label='Toggle mobile menu'
+							aria-label='モバイルメニューを切り替え'
 						>
 							<span className='sr-only'>
-								{isOpen ? 'Close main menu' : 'Open main menu'}
+								{isOpen ? 'メニューを閉じる' : 'メニューを開く'}
 							</span>
 							{!isOpen ? (
 								<Menu className='block h-6 w-6' aria-hidden='true' />
@@ -156,7 +156,7 @@ export function Navbar() {
 					</div>
 				</div>
 
-				{/* Mobile Menu Overlay */}
+				{/* モバイルメニューオーバーレイ */}
 				{isOpen && (
 					<div
 						className='fixed inset-0 bg-black bg-opacity-50 md:hidden'
@@ -165,7 +165,7 @@ export function Navbar() {
 					/>
 				)}
 
-				{/* Mobile Menu */}
+				{/* モバイルメニュー */}
 				<div
 					id='mobile-menu'
 					className={`transform transition-all duration-300 ease-in-out md:hidden fixed inset-y-0 right-0 w-64 bg-white shadow-xl ${
@@ -176,7 +176,7 @@ export function Navbar() {
 						<button
 							onClick={() => setIsOpen(false)}
 							className='p-2 rounded-lg text-gray-600 hover:text-blue-600 hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500'
-							aria-label='Close menu'
+							aria-label='メニューを閉じる'
 						>
 							<X className='h-6 w-6' aria-hidden='true' />
 						</button>
@@ -195,13 +195,13 @@ export function Navbar() {
 						))}
 					</div>
 
-					{/* Mobile Auth Section */}
+					{/* モバイル認証セクション */}
 					<div className='absolute bottom-0 w-full pt-4 pb-3 border-t border-gray-200 bg-gray-50'>
 						<div className='px-4 flex items-center justify-between'>
 							<SignedIn>
 								<div className='flex items-center space-x-4'>
 									<div className='px-3 py-1 rounded-full bg-blue-50 text-blue-600 text-sm font-medium'>
-										10 Credits
+										10 クレジット
 									</div>
 									<UserButton
 										appearance={{
@@ -215,7 +215,7 @@ export function Navbar() {
 							<SignedOut>
 								<SignInButton mode='modal'>
 									<button className='inline-flex items-center px-4 py-2 rounded-lg text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2'>
-										Sign In
+										ログイン
 									</button>
 								</SignInButton>
 							</SignedOut>

@@ -6,55 +6,55 @@ import { useState } from 'react';
 export function Pricing() {
 	const [isAnnual, setIsAnnual] = useState(true);
 
-	const tiers = [
-		{
-			name: 'Starter',
-			description: 'Perfect for trying out ManuscriptAI',
-			price: isAnnual ? 9 : 12,
-			features: [
-				'Up to 50 manuscripts per month',
-				'Basic editing suggestions',
-				'Grammar & spell check',
-				'Export to Word & PDF',
-				'Email support',
-			],
-			cta: 'Start Free Trial',
-			highlighted: false,
-		},
-		{
-			name: 'Professional',
-			description: 'Best for professional writers',
-			price: isAnnual ? 29 : 39,
-			features: [
-				'Up to 200 manuscripts per month',
-				'Advanced style suggestions',
-				'Plagiarism detection',
-				'Citation formatting',
-				'Priority email support',
-				'Custom templates',
-				'Track changes',
-			],
-			cta: 'Get Started',
-			highlighted: true,
-		},
-		{
-			name: 'Enterprise',
-			description: 'For teams and organizations',
-			price: isAnnual ? 99 : 129,
-			features: [
-				'Unlimited manuscripts',
-				'Team collaboration',
-				'Admin dashboard',
-				'API access',
-				'Custom AI training',
-				'24/7 priority support',
-				'Dedicated account manager',
-				'Custom integration',
-			],
-			cta: 'Contact Sales',
-			highlighted: false,
-		},
-	];
+const tiers = [
+	{
+		name: 'スタータープラン',
+		description: 'ManuscriptAIを試すのに最適',
+		price: isAnnual ? 9 : 12,
+		features: [
+			'月50原稿まで',
+			'基本的な編集提案',
+			'文法・スペルチェック',
+			'Word・PDFへのエクスポート',
+			'メールサポート',
+		],
+		cta: '無料トライアルを開始',
+		highlighted: false,
+	},
+	{
+		name: 'プロフェッショナル',
+		description: 'プロの作家に最適',
+		price: isAnnual ? 29 : 39,
+		features: [
+			'月200原稿まで',
+			'高度な文体提案',
+			'剽窃チェック',
+			'引用形式の整形',
+			'優先メールサポート',
+			'カスタムテンプレート',
+			'変更履歴の追跡',
+		],
+		cta: '始める',
+		highlighted: true,
+	},
+	{
+		name: 'エンタープライズ',
+		description: 'チームや組織向け',
+		price: isAnnual ? 99 : 129,
+		features: [
+			'無制限の原稿',
+			'チームコラボレーション',
+			'管理者ダッシュボード',
+			'API アクセス',
+			'カスタムAIトレーニング',
+			'24時間年中無休のサポート',
+			'専任アカウントマネージャー',
+			'カスタム連携',
+		],
+		cta: '営業に問い合わせ',
+		highlighted: false,
+	},
+];
 
 	return (
 		<div className='min-h-screen bg-gray-50 py-20'>
@@ -62,10 +62,10 @@ export function Pricing() {
 				{/* Header */}
 				<div className='text-center mb-16'>
 					<h1 className='text-4xl font-bold text-gray-900 mb-4'>
-						Simple, transparent pricing
+						シンプルで透明性のある料金プラン
 					</h1>
 					<p className='text-xl text-gray-600 mb-8'>
-						Choose the perfect plan for your writing needs
+						あなたの執筆ニーズに合わせた最適なプランをお選びください
 					</p>
 
 					{/* Billing Toggle */}
@@ -75,7 +75,7 @@ export function Pricing() {
 								!isAnnual ? 'text-gray-900 font-medium' : 'text-gray-500'
 							}`}
 						>
-							Monthly billing
+							月額プラン
 						</span>
 						<button
 							onClick={() => setIsAnnual(!isAnnual)}
@@ -94,9 +94,9 @@ export function Pricing() {
 								isAnnual ? 'text-gray-900 font-medium' : 'text-gray-500'
 							}`}
 						>
-							Annual billing
+							年額プラン
 							<span className='ml-1.5 inline-flex items-center rounded-full bg-green-100 px-2 py-0.5 text-xs font-medium text-green-800'>
-								Save 20%
+								20%お得
 							</span>
 						</span>
 					</div>
@@ -116,7 +116,7 @@ export function Pricing() {
 							{tier.highlighted && (
 								<div className='absolute -top-4 left-1/2 -translate-x-1/2'>
 									<span className='inline-flex items-center rounded-full bg-blue-200 px-4 py-1 text-sm font-semibold text-blue-800'>
-										Most Popular
+										人気プラン
 									</span>
 								</div>
 							)}
@@ -140,7 +140,7 @@ export function Pricing() {
 											tier.highlighted ? 'text-blue-100' : 'text-gray-500'
 										}`}
 									>
-										/month
+										/月
 									</span>
 								</p>
 								<p
@@ -148,7 +148,7 @@ export function Pricing() {
 										tier.highlighted ? 'text-blue-100' : 'text-gray-500'
 									}`}
 								>
-									{isAnnual ? 'Billed annually' : 'Billed monthly'}
+									{isAnnual ? '年間契約' : '月額契約'}
 								</p>
 							</div>
 
@@ -177,25 +177,21 @@ export function Pricing() {
 						</div>
 					))}
 				</div>
-
-				{/* FAQ Section */}
 				<div className='mt-20'>
-					<h2 className='text-2xl font-bold text-center mb-8'>
-						Frequently Asked Questions
-					</h2>
+					<h2 className='text-2xl font-bold text-center mb-8'>よくある質問</h2>
 					<div className='grid gap-6 md:grid-cols-2 lg:grid-cols-3'>
 						{[
 							{
-								q: "What's included in the free trial?",
-								a: 'The 14-day free trial includes all Professional plan features with a limit of 10 manuscripts.',
+								q: '無料トライアルには何が含まれますか？',
+								a: '14日間の無料トライアルでは、プロフェッショナルプランのすべての機能を10原稿まで利用できます。',
 							},
 							{
-								q: 'Can I switch plans later?',
-								a: 'Yes, you can upgrade or downgrade your plan at any time. Changes take effect immediately.',
+								q: '後からプランを変更できますか？',
+								a: 'はい、いつでもプランのアップグレードまたはダウングレードが可能です。変更は即時に反映されます。',
 							},
 							{
-								q: 'Do you offer refunds?',
-								a: 'We offer a 30-day money-back guarantee for all paid plans. No questions asked.',
+								q: '返金は可能ですか？',
+								a: '有料プランには30日間の返金保証があります。理由を問わず返金いたします。',
 							},
 						].map((faq) => (
 							<div key={faq.q} className='bg-white rounded-lg p-6 shadow-sm'>
@@ -212,10 +208,10 @@ export function Pricing() {
 				{/* CTA Section */}
 				<div className='mt-20 text-center'>
 					<p className='text-gray-600 mb-4'>
-						Still have questions? We're here to help.
+						ご不明な点がございましたら、お気軽にお問い合わせください。
 					</p>
 					<button className='inline-flex items-center px-4 py-2 rounded-lg text-sm font-medium text-blue-600 bg-blue-50 hover:bg-blue-100 transition-colors'>
-						Contact Support
+						サポートに問い合わせ
 					</button>
 				</div>
 			</div>

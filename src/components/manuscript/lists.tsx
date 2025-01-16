@@ -32,7 +32,8 @@ export function ManuscriptList({ manuscripts }: ManuscriptListProps) {
 							{manuscript.title}
 						</h3>
 						<p className='text-sm text-gray-500 mt-2'>
-							Created {formatDistanceToNow(new Date(manuscript.createdAt))} ago
+							作成されました{' '}
+							{formatDistanceToNow(new Date(manuscript.createdAt))} 前
 						</p>
 					</div>
 				))}

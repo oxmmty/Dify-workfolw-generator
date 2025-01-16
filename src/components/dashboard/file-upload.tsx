@@ -37,7 +37,7 @@ export function FileUpload() {
 				setUsageStatus(status);
 			} catch (err) {
 				console.error('Error checking usage:', err);
-				setError('Failed to check usage limit');
+				setError('利用制限の確認に失敗しました');
 			}
 		};
 
@@ -48,14 +48,13 @@ export function FileUpload() {
 		e.preventDefault();
 		if (!file) return;
 
-		// Check usage limit before processing
 		try {
 			const status = await checkUsageLimit();
 			setUsageStatus(status);
 
 			if (!status.canGenerate) {
 				setError(
-					`Usage limit reached (${status.used}/${status.limit}). Please upgrade your plan to continue.`
+					`利用制限に達しました（${status.used}/${status.limit}）。プランをアップグレードして続行してください。`
 				);
 				return;
 			}
@@ -101,7 +100,7 @@ export function FileUpload() {
 						console.log('Updated user:', updatedUser);
 					} catch (createError) {
 						console.error('Error creating manuscript:', createError);
-						setError('Failed to save manuscript. Please try again.');
+						setError('原稿の保存に失敗しました。もう一度お試しください。');
 					}
 				} else if (manuscriptData.title && manuscriptData.content) {
 					try {
@@ -112,15 +111,15 @@ export function FileUpload() {
 						console.log('Updated user:', updatedUser);
 					} catch (createError) {
 						console.error('Error creating manuscript:', createError);
-						setError('Failed to save manuscript. Please try again.');
+						setError('原稿の保存に失敗しました。もう一度お試しください。');
 					}
 				} else {
 					console.error('Invalid manuscript data:', manuscriptData);
-					setError('Invalid manuscript data received. Please try again.');
+					setError('無効な原稿データを受信しました。もう一度お試しください。');
 				}
 			} else {
 				console.error('No formatted manuscript in result:', finalResult);
-				setError('Failed to process document. Please try again.');
+				setError('文書の処理に失敗しました。もう一度お試しください。');
 			}
 
 			router.refresh();
@@ -129,7 +128,7 @@ export function FileUpload() {
 			if (err instanceof Error) {
 				setError(err.message);
 			} else {
-				setError('An unknown error occurred');
+				setError('不明なエラーが発生しました');
 			}
 		} finally {
 			setIsLoading(false);
@@ -147,15 +146,13 @@ export function FileUpload() {
 			}
 			await new Promise((resolve) => setTimeout(resolve, 2000));
 		}
-		throw new Error('Workflow execution timed out');
+		throw new Error('ワークフローの実行がタイムアウトしました');
 	};
 
 	return (
 		<div className='h-screen bg-gray-50'>
 			<div className='h-16 bg-white border-b flex items-center px-6'>
-				<h1 className='text-xl font-semibold text-gray-800'>
-					Document Processing
-				</h1>
+				<h1 className='text-xl font-semibold text-gray-800'>文書処理</h1>
 			</div>
 
 			<div className='h-[calc(100vh-4rem)] flex'>
@@ -163,7 +160,7 @@ export function FileUpload() {
 					<div className='h-full flex flex-col'>
 						<div className='p-6'>
 							<h2 className='text-lg font-medium text-gray-800 mb-4'>
-								Upload Document
+								文書をアップロード
 							</h2>
 							<form onSubmit={handleSubmit} className='space-y-4'>
 								<div className='flex items-center justify-center w-full'>
@@ -174,11 +171,13 @@ export function FileUpload() {
 										<div className='flex flex-col items-center justify-center pt-5 pb-6'>
 											<Upload className='w-8 h-8 mb-3 text-gray-400' />
 											<p className='mb-2 text-sm text-gray-500'>
-												<span className='font-semibold'>Click to upload</span>{' '}
-												or drag and drop
+												<span className='font-semibold'>
+													クリックしてアップロード
+												</span>{' '}
+												またはドラッグ＆ドロップ
 											</p>
 											<p className='text-xs text-gray-500'>
-												PDF or TXT (MAX. 10MB)
+												PDFまたはTXT（最大10MB）
 											</p>
 										</div>
 										<input
@@ -193,7 +192,7 @@ export function FileUpload() {
 								{file && (
 									<div className='p-3 bg-blue-50 rounded-md border border-blue-100'>
 										<p className='text-sm text-blue-700'>
-											Selected: <span className='font-medium'>{file.name}</span>
+											選択済み: <span className='font-medium'>{file.name}</span>
 										</p>
 									</div>
 								)}
@@ -205,10 +204,10 @@ export function FileUpload() {
 									{isLoading ? (
 										<div className='flex items-center justify-center'>
 											<Loader className='w-4 h-4 mr-2 animate-spin' />
-											<span>Processing...</span>
+											<span>処理中...</span>
 										</div>
 									) : (
-										'Process Document'
+										'文書を処理'
 									)}
 								</button>
 							</form>
@@ -219,14 +218,13 @@ export function FileUpload() {
 								<div className='mt-4 p-4 bg-red-50 border border-red-200 text-red-700 rounded-lg flex items-start'>
 									<AlertCircle className='w-5 h-5 mr-2 flex-shrink-0 mt-0.5' />
 									<div>
-										<p className='font-medium'>Error</p>
+										<p className='font-medium'>エラー</p>
 										<p className='text-sm mt-1'>{error}</p>
 										{error.includes('not published') && (
 											<div className='mt-2 p-2 bg-yellow-50 border border-yellow-200 text-yellow-700 rounded-md flex items-start'>
 												<Info className='w-4 h-4 mr-2 flex-shrink-0 mt-0.5' />
 												<p className='text-sm'>
-													To publish your workflow, go to your Dify account,
-													select the workflow, and click the "Publish" button.
+													ワークフローを公開するには、Difyアカウントにアクセスし、ワークフローを選択して「公開」ボタンをクリックしてください。
 												</p>
 											</div>
 										)}
@@ -250,10 +248,10 @@ export function FileUpload() {
 										<Upload className='w-12 h-12 text-gray-300' />
 									</div>
 									<h3 className='mt-4 text-lg font-medium text-gray-700'>
-										No Document Processed
+										処理済みの文書がありません
 									</h3>
 									<p className='mt-2 text-gray-500'>
-										Upload a document to see the generated manuscript here
+										文書をアップロードすると、ここに生成された原稿が表示されます
 									</p>
 								</div>
 							</div>

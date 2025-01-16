@@ -10,48 +10,44 @@ export function HomePage() {
 	const features = [
 		{
 			icon: <FileText className='h-6 w-6 text-blue-500' />,
-			title: 'Smart PDF Processing',
-			description:
-				"Advanced AI technology that understands and preserves your document's structure and meaning.",
+			title: 'スマートPDF処理',
+			description: '文書の構造と意味を理解し保持する高度なAI技術を搭載。',
 		},
 		{
 			icon: <Zap className='h-6 w-6 text-blue-500' />,
-			title: 'Lightning Fast',
-			description:
-				'Get your professionally formatted book manuscript in minutes, not hours.',
+			title: '超高速処理',
+			description: 'プロフェッショナルな書籍原稿を数時間ではなく数分で作成。',
 		},
 		{
 			icon: <Shield className='h-6 w-6 text-blue-500' />,
-			title: 'Secure & Private',
-			description:
-				'Your documents are encrypted and automatically deleted after processing.',
+			title: '安全性とプライバシー',
+			description: '文書は暗号化され、処理後は自動的に削除されます。',
 		},
 		{
 			icon: <Clock className='h-6 w-6 text-blue-500' />,
-			title: '24/7 Availability',
-			description:
-				'Convert your PDFs into books anytime, anywhere, with consistent quality.',
+			title: '24時間365日利用可能',
+			description: 'いつでもどこでも一貫した品質でPDFを書籍に変換。',
 		},
 	];
 
 	const testimonials = [
 		{
-			name: 'Sarah Johnson',
-			role: 'Independent Author',
+			name: '佐藤 由美',
+			role: '独立作家',
 			content:
-				'This tool saved me countless hours of formatting work. The output quality is exceptional!',
+				'このツールのおかげで、フォーマット作業に費やす時間が大幅に削減できました。出力の品質も申し分ありません！',
 		},
 		{
-			name: 'Michael Chen',
-			role: 'Publishing Consultant',
+			name: '田中 健一',
+			role: '出版コンサルタント',
 			content:
-				"A game-changer for our workflow. We've reduced formatting time by 75%.",
+				'ワークフローを一変させる画期的なツールです。フォーマット作業の時間が75%も削減されました。',
 		},
 		{
-			name: 'Emily Rodriguez',
-			role: 'Content Creator',
+			name: '山田 恵子',
+			role: 'コンテンツクリエイター',
 			content:
-				'Incredibly easy to use and the results are consistently professional.',
+				'使い方が非常に簡単で、常にプロフェッショナルな結果が得られます。',
 		},
 	];
 
@@ -64,15 +60,13 @@ export function HomePage() {
 						<main className='mt-10 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28'>
 							<div className='sm:text-center lg:text-left'>
 								<h1 className='text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl'>
-									<span className='block'>Transform Your PDFs into</span>
+									<span className='block'>PDFを</span>
 									<span className='block text-blue-600'>
-										Professional Books
+										プロフェッショナルな書籍に変換
 									</span>
 								</h1>
 								<p className='mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0'>
-									Harness the power of AI to convert your PDF documents into
-									perfectly formatted book manuscripts. Save time, maintain
-									consistency, and publish faster.
+									AIの力でPDF文書を完璧にフォーマットされた書籍原稿に変換。時間を節約し、一貫性を保ちながら、より速く出版できます。
 								</p>
 								<div className='mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start'>
 									{isSignedIn ? (
@@ -80,21 +74,21 @@ export function HomePage() {
 											href='/dashboard'
 											className='inline-flex items-center rounded-md bg-blue-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors'
 										>
-											Go to Dashboard
+											ダッシュボードへ
 											<ArrowRight className='ml-2 h-5 w-5' />
 										</Link>
 									) : (
 										<div className='space-x-4'>
 											<SignInButton mode='modal'>
 												<button className='inline-flex items-center px-6 py-3 rounded-lg text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2'>
-													Get Started
+													始める
 												</button>
 											</SignInButton>
 											<Link
 												href='/pricing'
 												className='inline-flex items-center rounded-md bg-blue-50 px-6 py-3 text-base font-medium text-blue-600 hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors'
 											>
-												View Pricing
+												料金を見る
 											</Link>
 										</div>
 									)}
@@ -110,11 +104,10 @@ export function HomePage() {
 				<div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
 					<div className='text-center'>
 						<h2 className='text-3xl font-bold text-gray-900'>
-							Why Choose Our Platform?
+							なぜ私たちのプラットフォームを選ぶのか？
 						</h2>
 						<p className='mt-4 text-lg text-gray-600'>
-							Everything you need to transform your PDFs into professional book
-							manuscripts
+							PDFをプロフェッショナルな書籍原稿に変換するために必要なすべてを提供
 						</p>
 					</div>
 
@@ -143,27 +136,26 @@ export function HomePage() {
 			<section className='py-16 bg-white'>
 				<div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
 					<h2 className='text-3xl font-bold text-center text-gray-900'>
-						How It Works
+						使い方
 					</h2>
 					<div className='mt-12 grid gap-8 grid-cols-1 md:grid-cols-3'>
 						{[
 							{
 								step: '1',
-								title: 'Upload Your PDF',
+								title: 'PDFをアップロード',
 								description:
-									'Simply drag and drop your PDF file into our secure platform',
+									'安全なプラットフォームにPDFファイルをドラッグ＆ドロップするだけ',
 							},
 							{
 								step: '2',
-								title: 'AI Processing',
-								description:
-									'Our advanced AI analyzes and converts your content',
+								title: 'AI処理',
+								description: '高度なAIがコンテンツを分析し変換します',
 							},
 							{
 								step: '3',
-								title: 'Download Result',
+								title: '結果をダウンロード',
 								description:
-									'Get your professionally formatted book manuscript',
+									'プロフェッショナルにフォーマットされた書籍原稿を入手',
 							},
 						].map((item, index) => (
 							<div key={index} className='text-center'>
@@ -186,7 +178,7 @@ export function HomePage() {
 			<section className='py-16 bg-gray-50'>
 				<div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
 					<h2 className='text-3xl font-bold text-center text-gray-900'>
-						What Our Users Say
+						ユーザーの声
 					</h2>
 					<div className='mt-12 grid gap-8 grid-cols-1 md:grid-cols-3'>
 						{testimonials.map((testimonial, index) => (
@@ -194,7 +186,9 @@ export function HomePage() {
 								key={index}
 								className='bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow'
 							>
-								<p className='text-gray-600 italic'>"{testimonial.content}"</p>
+								<p className='text-gray-600 italic'>
+									「{testimonial.content}」
+								</p>
 								<div className='mt-4'>
 									<p className='font-medium text-gray-900'>
 										{testimonial.name}
@@ -212,11 +206,10 @@ export function HomePage() {
 				<div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
 					<div className='text-center'>
 						<h2 className='text-3xl font-bold text-white'>
-							Ready to Transform Your PDFs?
+							PDFを変換する準備はできましたか？
 						</h2>
 						<p className='mt-4 text-xl text-blue-100'>
-							Join thousands of satisfied users who have streamlined their book
-							creation process
+							書籍制作プロセスを効率化した多くの満足ユーザーに加わりましょう
 						</p>
 						<div className='mt-8'>
 							{isSignedIn ? (
@@ -224,13 +217,13 @@ export function HomePage() {
 									href='/dashboard'
 									className='inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-blue-600 bg-white hover:bg-blue-50 transition-colors'
 								>
-									Go to Dashboard
+									ダッシュボードへ
 									<ArrowRight className='ml-2 h-5 w-5' />
 								</Link>
 							) : (
 								<SignInButton mode='modal'>
 									<button className='inline-flex border items-center px-6 py-3 rounded-lg text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2'>
-										Get Started
+										始める
 									</button>
 								</SignInButton>
 							)}
