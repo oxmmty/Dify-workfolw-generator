@@ -83,8 +83,8 @@ export function FileUpload() {
 
 			setResult(finalResult);
 
-			if (finalResult?.data?.outputs?.formatted_manuscript) {
-				const manuscriptData = finalResult.data.outputs.formatted_manuscript;
+			if (finalResult?.data?.outputs?.text) {
+				const manuscriptData = finalResult.data.outputs.text;
 				console.log('Manuscript data:', manuscriptData);
 
 				if (typeof manuscriptData === 'string') {
@@ -237,9 +237,9 @@ export function FileUpload() {
 
 				<div className='flex-1 overflow-hidden'>
 					<div className='h-full border-[1px] overflow-y-auto px-6 py-6'>
-						{result?.data?.outputs?.formatted_manuscript ? (
+						{result?.data?.outputs?.text ? (
 							<ManuscriptOutput
-								manuscript={result.data.outputs.formatted_manuscript}
+								manuscript={result.data.outputs.text}
 							/>
 						) : (
 							<div className='h-ful flex items-center justify-center'>
