@@ -58,16 +58,25 @@ export async function uploadFile(formData: FormData) {
 }
 
 export async function runWorkflow(fileId: string, user: string) {
+	if (!API_URL || !API_KEY) {
+		throw new Error(
+			'API configuration is missing. Please check your environment variables.'
+		);
+	}
+
 	try {
+		console.log('Running workflow with URL:', `${API_URL}/workflows/run`);
+
 		const response = await fetch(`${API_URL}/workflows/run`, {
 			method: 'POST',
 			headers: {
 				Authorization: `Bearer ${API_KEY}`,
 				'Content-Type': 'application/json',
+				Accept: 'application/json',
 			},
 			body: JSON.stringify({
 				inputs: {
-					file: {
+					knowledge: {
 						transfer_method: 'local_file',
 						upload_file_id: fileId,
 						type: 'document',
@@ -78,27 +87,51 @@ export async function runWorkflow(fileId: string, user: string) {
 			}),
 		});
 
-		if (!response.ok) {
-			const errorData = await response.json();
-			console.error('Workflow execution failed:', errorData);
+		// Log response details for debugging
+		console.log('Response status:', response.status);
+		console.log(
+			'Response headers:',
+			Object.fromEntries(response.headers.entries())
+		);
 
-			if (
-				errorData.code === 'invalid_param' &&
-				errorData.message === 'Workflow not published'
-			) {
-				throw new Error(
-					'The workflow is not published. Please publish the workflow in your Dify account.'
-				);
+		if (!response.ok) {
+			let errorMessage;
+			const contentType = response.headers.get('content-type');
+
+			if (contentType && contentType.includes('application/json')) {
+				try {
+					const errorData = await response.json();
+					errorMessage = errorData.message || response.statusText;
+
+					if (
+						errorData.code === 'invalid_param' &&
+						errorData.message === 'Workflow not published'
+					) {
+						throw new Error(
+							'The workflow is not published. Please publish the workflow in your Dify account.'
+						);
+					}
+				} catch (parseError) {
+					console.error('Error parsing JSON response:', parseError);
+					errorMessage = `Failed to parse error response: ${response.statusText}`;
+				}
 			} else {
-				throw new Error(
-					`Workflow execution failed: ${
-						errorData.message || response.statusText
-					}`
-				);
+				// For non-JSON responses, try to get the text content
+				try {
+					const textContent = await response.text();
+					console.error('Non-JSON error response:', textContent);
+					errorMessage = `Server returned ${response.status}: ${response.statusText}`;
+				} catch (textError) {
+					errorMessage = `HTTP ${response.status}: ${response.statusText}`;
+				}
 			}
+
+			throw new Error(`Workflow execution failed: ${errorMessage}`);
 		}
 
-		return response.json();
+		const result = await response.json();
+		console.log('Workflow execution successful:', result);
+		return result;
 	} catch (error) {
 		console.error('Error in runWorkflow:', error);
 		throw error;

@@ -4,9 +4,13 @@
 	"private": true,
 	"scripts": {
 		"dev": "next dev --turbopack",
+		"dev:https": "next dev --experimental-https",
 		"build": "next build",
 		"start": "next start",
-		"lint": "next lint"
+		"lint": "next lint",
+		"vercel-build": "prisma generate && prisma migrate deploy && next build",
+		"prisma:generate": "prisma generate",
+		"studio": "prisma studio --browser none"
 	},
 	"prisma": {
 		"schema": "./src/prisma/schema.prisma"
