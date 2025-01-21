@@ -1,0 +1,1501 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: workflow
+  name: 書籍原稿　PG改訂版
+  use_icon_as_answer_icon: false
+kind: app
+version: 0.1.5
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        image_file_size_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        sourceType: llm
+        targetType: llm
+      id: 1735128750294-source-1735128762104-target
+      selected: false
+      source: '1735128750294'
+      sourceHandle: source
+      target: '1735128762104'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: llm
+        targetType: llm
+      id: 1735128762104-source-1735128770029-target
+      selected: false
+      source: '1735128762104'
+      sourceHandle: source
+      target: '1735128770029'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: start
+        targetType: document-extractor
+      id: 1735128747811-source-1735263514173-target
+      selected: false
+      source: '1735128747811'
+      sourceHandle: source
+      target: '1735263514173'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: document-extractor
+        targetType: llm
+      id: 1735263514173-source-1735128750294-target
+      selected: false
+      source: '1735263514173'
+      sourceHandle: source
+      target: '1735128750294'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: llm
+        targetType: llm
+      id: 1735128771736-source-1735264919936-target
+      selected: false
+      source: '1735128771736'
+      sourceHandle: source
+      target: '1735264919936'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: llm
+        targetType: llm
+      id: 1735264919936-source-1735264953830-target
+      selected: false
+      source: '1735264919936'
+      sourceHandle: source
+      target: '1735264953830'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: llm
+        targetType: end
+      id: 1735264953830-source-1735265521852-target
+      selected: false
+      source: '1735264953830'
+      sourceHandle: source
+      target: '1735265521852'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: llm
+        targetType: end
+      id: 1735128770029-source-1735265521852-target
+      selected: false
+      source: '1735128770029'
+      sourceHandle: source
+      target: '1735265521852'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: llm
+        targetType: llm
+      id: 1735265962091-source-1735265967704-target
+      selected: false
+      source: '1735265962091'
+      sourceHandle: source
+      target: '1735265967704'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: llm
+        targetType: llm
+      id: 1735265967704-source-1735265972631-target
+      selected: false
+      source: '1735265967704'
+      sourceHandle: source
+      target: '1735265972631'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: llm
+        targetType: end
+      id: 1735265972631-source-1735265521852-target
+      selected: false
+      source: '1735265972631'
+      sourceHandle: source
+      target: '1735265521852'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: llm
+        targetType: llm
+      id: 1735265989596-source-1735265993808-target
+      selected: false
+      source: '1735265989596'
+      sourceHandle: source
+      target: '1735265993808'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: llm
+        targetType: llm
+      id: 1735265993808-source-1735265999311-target
+      selected: false
+      source: '1735265993808'
+      sourceHandle: source
+      target: '1735265999311'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: llm
+        targetType: end
+      id: 1735265999311-source-1735265521852-target
+      selected: false
+      source: '1735265999311'
+      sourceHandle: source
+      target: '1735265521852'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: llm
+        targetType: llm
+      id: 1735266010843-source-1735266015071-target
+      selected: false
+      source: '1735266010843'
+      sourceHandle: source
+      target: '1735266015071'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: llm
+        targetType: llm
+      id: 1735266015071-source-1735266019542-target
+      selected: false
+      source: '1735266015071'
+      sourceHandle: source
+      target: '1735266019542'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: llm
+        targetType: end
+      id: 1735266019542-source-1735265521852-target
+      selected: false
+      source: '1735266019542'
+      sourceHandle: source
+      target: '1735265521852'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: llm
+        targetType: end
+      id: 1735266043297-source-1735265521852-target
+      selected: false
+      source: '1735266043297'
+      sourceHandle: source
+      target: '1735265521852'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: llm
+        targetType: llm
+      id: 1735128762104-source-1735266043297-target
+      selected: false
+      source: '1735128762104'
+      sourceHandle: source
+      target: '1735266043297'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: llm
+        targetType: llm
+      id: 1735128762104-source-1735128771736-target
+      selected: false
+      source: '1735128762104'
+      sourceHandle: source
+      target: '1735128771736'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: llm
+        targetType: llm
+      id: 1735128762104-source-1735265962091-target
+      selected: false
+      source: '1735128762104'
+      sourceHandle: source
+      target: '1735265962091'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: llm
+        targetType: llm
+      id: 1735128762104-source-1735265989596-target
+      selected: false
+      source: '1735128762104'
+      sourceHandle: source
+      target: '1735265989596'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: llm
+        targetType: llm
+      id: 1735128762104-source-1735266010843-target
+      selected: false
+      source: '1735128762104'
+      sourceHandle: source
+      target: '1735266010843'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        desc: ''
+        selected: false
+        title: 開始
+        type: start
+        variables:
+        - allowed_file_extensions: []
+          allowed_file_types:
+          - document
+          allowed_file_upload_methods:
+          - local_file
+          label: knowledge
+          max_length: 48
+          options: []
+          required: true
+          type: file
+          variable: knowledge
+      height: 90
+      id: '1735128747811'
+      position:
+        x: 80
+        y: 282
+      positionAbsolute:
+        x: 80
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1735263514173'
+          - text
+        desc: ''
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: gpt-4o-mini
+          provider: openai
+        prompt_template:
+        - id: b5ed10f4-95be-489e-8b4e-6d9cc83e9b83
+          role: system
+          text: '# Task
+
+
+            記憶された内容に基づいて、各章と小見出しを含む 4 つの章で構成された目次を作成します。
+
+
+            # 作成ステップ
+
+
+            1. **コンテンツ記憶**: ''{{#1735263514173.text#}}'' の内容を記憶します。
+
+            2. **目次作成**: 記憶した内容をもとに、4章構成で各章と小見出しを決定します。
+
+
+            # 出力形式
+
+
+            - 目次はMarkdown形式で提供されます。
+
+            - 章と小見出しは例に近い形式で記述します。
+
+
+            # 目次の例
+
+
+            ***
+
+            第1章: 振り子の法則とは何か
+
+            1.1 人生を動かす見えない力
+
+            1.2 振り子と現実の関係
+
+            1.3 振り子と量子物理学の関連性
+
+
+            第2章: トランサーフィンと人生の波に乗る方法
+
+            2.1 トランサーフィンの基本原理
+
+            2.2 幸運の波を掴むための具体的ステップ
+
+            2.3 思考エネルギーの影響力
+
+
+            第3章: 振り子に飲み込まれないための対策
+
+            3.1 破壊的な振り子の性質とは
+
+            3.2 振り子からのエネルギー吸収を避ける
+
+            3.3 振り子に対処するための二つの方法
+
+
+            第4章: 自分自身を守り、幸運を引き寄せる生き方
+
+            4.1 自己エネルギーを高める習慣
+
+            4.2 幸運の波と振り子の法則のバランス
+
+            4.3 自分の振り子を見つけ、人生をデザインする
+
+            ***
+
+
+            # Notes
+
+
+            - 各章を具体的で関連性のある見出しにする。
+
+            - 記憶した内容のテーマに沿って目次を作成する。'
+        selected: false
+        title: 目次
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 98
+      id: '1735128750294'
+      position:
+        x: 686.999044923363
+        y: 282
+      positionAbsolute:
+        x: 686.999044923363
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: gpt-4o-mini
+          provider: openai
+        prompt_template:
+        - id: 46fa3aff-3f25-4a43-97ef-58f330473b44
+          role: system
+          text: "# Task\n\n{{#1735128750294.text#}}の目次項目に基づき、詳細な内容を執筆するためのプロンプトを作成してください。\n\
+            \n「はじめに」から「おわりに」までの各項目について文章を書くための指示を以下のように設定します。\n\n- **パートの目的**: 各目次項目に基づき、読者に分かりやすい内容を提供します。\n\
+            - **文章の長さ**: 各パートの内容は1000字以上とします。\n- **専門用語の取り扱い**: 難しい用語や概念は、読み手にもわかりやすいように小学生でも理解できる表現に変換してください。\n\
+            \n# Steps\n\n1. **文章構成の明確化**: 各項目に対する詳細な文章を出発点として、目次をもとにテーマの概要を明確にします。\n\
+            \   \n2. **キーワードへの強調**: 重要な語句やフレーズを**太字**にして、読者の注意を引くようにします。\n\n3. **読者の視点での分析**:\
+            \ 可能性がある疑問点を特定し、それに対する解説を追加して疑問を解消します。\n\n4. **異なる表現方法の使用**: 必要に応じて、専門的な情報を小学生にも理解できるようにかみ砕いて説明します。\n\
+            \n# Output Format\n\n- 各目次項目に対する詳細内容は、指定された字数（1000字以上）を満たすようにまとめます。\n\
+            - 重要な語句やフレーズには**太字**を使用します。\n- 疑問が発生しやすい箇所には丁寧な解説を追加し、必要な場合は簡潔な言葉を用います。\n\
+            \n# 例\n\n- **「はじめに」を作成するプロンプトの例**:\n  記憶した内容をもとに、\n  「はじめに」についての詳細を箇条書きにせずに、1000字以上でわかりやすく書いてください。なお、文章の重要な語句やフレーズは**太字**で書いてください。\n\
+            \  読み手が疑問に思いそうな部分は、解説を追加し疑問を解消してください。\n  情報量不足で疑問に思いそうな部分は、小学生でもわかるように言い換えて詳細を説明することで難しい言葉でもわかるようにしてください。\n\
+            \n- **「1.1」を作成するプロンプトの例**:\n  ***\n  記憶した内容をもとに、\n  「第1章: 振り子の法則とは何か」の小見出し「1.1\
+            \ 人生を動かす見えない力」についての詳細を箇条書きにせずに、1000字以上でわかりやすく書いてください。なお、文章の重要な語句やフレーズは**太字**で書いてください。\n\
+            \  読み手が疑問に思いそうな部分は、解説を追加し疑問を解消してください。\n  情報量不足で疑問に思いそうな部分は、小学生でもわかるように言い換えて詳細を説明することで難しい言葉でもわかるようにしてください。\n\
+            \  ***\n\n- この形式を他の目次項目にも適用してプロンプトを作成してください。\n\n# Notes\n\n- 各章の概要を、万人に伝わる形式でカバーすることを心がけてください。\n\
+            - 書かれた内容は、元の目次のテーマと調和することを確認してください。"
+        selected: false
+        title: プロンプト出力
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 98
+      id: '1735128762104'
+      position:
+        x: 957.610110065606
+        y: 282
+      positionAbsolute:
+        x: 957.610110065606
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: gpt-4o-mini
+          provider: openai
+        prompt_template:
+        - id: 868e5400-3784-414b-a5b5-afca0c038d9a
+          role: system
+          text: '記憶している内容と{{#1735128750294.text#}}の内容を参考に、{{#1735128762104.text#}}の「はじめに」を作成するためのプロンプトを実行する
+
+
+            # Output Format
+
+
+            - **タイトル**
+
+            - **はじめに**
+
+            - はじめにの詳細な説明を作成します。'
+        selected: false
+        title: はじめに　出力
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 98
+      id: '1735128770029'
+      position:
+        x: 1770.3975922275954
+        y: 282
+      positionAbsolute:
+        x: 1770.3975922275954
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: gpt-4o-mini
+          provider: openai
+        prompt_template:
+        - id: 5024542b-545a-4d11-81ea-899ca45bdb27
+          role: system
+          text: '# Task
+
+
+            記憶している内容に基づいて、{{#1735128762104.text#}} のセクション「1.1」 のテキストを作成するためのプロンプトを実行する
+
+
+            # Steps
+
+
+            1. 記憶している内容のうち、セクション「1.1」 のテーマに合致する関連部分を確認します。
+
+
+            2. テキストを論理的に構成し、既知のテーマに沿って明瞭性と一貫性を確保します。
+
+
+            3. {{#1735128762104.text#}} のセクション「1.1」 のテキストを作成するためのプロンプトを実行する
+
+
+            # Output Format
+
+
+            - **第 1 章: [第 1 章のテーマ名]**
+
+            - **1.1 [1.1 のテーマ名]**
+
+            - セクション 1.1 の詳細な説明を作成します。
+
+
+            # Notes
+
+
+            - 一貫性を維持するために、応答が記憶されている内容と厳密に一致していることを確認します。
+
+            - 詳細が不明な場合は、論理的推論を使用して、記憶されている内容に基づいて知識に基づいた仮定を立てます。'
+        selected: false
+        title: １－１　出力
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 98
+      id: '1735128771736'
+      position:
+        x: 1251.8039704468003
+        y: 464.84904650621786
+      positionAbsolute:
+        x: 1251.8039704468003
+        y: 464.84904650621786
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        is_array_file: false
+        selected: false
+        title: テキスト抽出ツール
+        type: document-extractor
+        variable_selector:
+        - '1735128747811'
+        - knowledge
+      height: 92
+      id: '1735263514173'
+      position:
+        x: 384
+        y: 282
+      positionAbsolute:
+        x: 384
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: gpt-4o-mini
+          provider: openai
+        prompt_template:
+        - id: f78fb218-66a5-44cc-a80a-b7bd5e494477
+          role: system
+          text: '# Task
+
+
+            記憶している内容に基づいて、{{#1735128771736.text#}}の続きとして、{{#1735128762104.text#}}
+            のセクション「1.2」 のテキストを作成するためのプロンプトを実行する
+
+
+            # Steps
+
+
+            1. 記憶している内容のうち、セクション「1.2」 のテーマに合致する関連部分を確認します。
+
+
+            2. {{#1735128771736.text#}}の内容を確認し、一貫性を確保します。
+
+
+            3. {{#1735128762104.text#}} のセクション「1.2」 のテキストを作成するためのプロンプトを実行する
+
+
+            # Output Format
+
+
+            - **1.2 [1.2 のテーマ名]**
+
+            - セクション 1.2 の詳細な説明を作成します。
+
+
+            # Notes
+
+
+            - 一貫性を維持するために、応答が記憶されている内容と厳密に一致していることを確認します。
+
+            - 詳細が不明な場合は、論理的推論を使用して、記憶されている内容に基づいて知識に基づいた仮定を立てます。'
+        selected: false
+        title: １－２　出力
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 98
+      id: '1735264919936'
+      position:
+        x: 1511.116240575395
+        y: 464.84904650621786
+      positionAbsolute:
+        x: 1511.116240575395
+        y: 464.84904650621786
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: gpt-4o-mini
+          provider: openai
+        prompt_template:
+        - id: fcc53bea-da23-4917-ae97-6f50a2ad7cc3
+          role: system
+          text: '# Task
+
+
+            記憶している内容に基づいて、{{#1735128771736.text#}}と{{#1735264919936.text#}}の続きとして、{{#1735128762104.text#}}
+            のセクション「1.3」 のテキストを作成するためのプロンプトを実行する
+
+
+            # Steps
+
+
+            1. 記憶している内容のうち、セクション「1.3」 のテーマに合致する関連部分を確認します。
+
+
+            2. {{#1735128771736.text#}}と{{#1735264919936.text#}}の内容を確認し、一貫性を確保します。
+
+
+            3. {{#1735128762104.text#}} のセクション「1.3」 のテキストを作成するためのプロンプトを実行する
+
+
+            # Output Format
+
+
+            - **1.3 [1.3 のテーマ名]**
+
+            - セクション 1.3 の詳細な説明を作成します。
+
+
+            # Notes
+
+
+            - 一貫性を維持するために、応答が記憶されている内容と厳密に一致していることを確認します。
+
+            - 詳細が不明な場合は、論理的推論を使用して、記憶されている内容に基づいて知識に基づいた仮定を立てます。'
+        selected: false
+        title: １－３　出力
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 98
+      id: '1735264953830'
+      position:
+        x: 1770.3975922275954
+        y: 464.84904650621786
+      positionAbsolute:
+        x: 1770.3975922275954
+        y: 464.84904650621786
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        outputs:
+        - value_selector:
+          - '1735128770029'
+          - text
+          variable: text
+        - value_selector:
+          - '1735128771736'
+          - text
+          variable: text
+        - value_selector:
+          - '1735264919936'
+          - text
+          variable: text
+        - value_selector:
+          - '1735264953830'
+          - text
+          variable: text
+        - value_selector:
+          - '1735265962091'
+          - text
+          variable: text
+        - value_selector:
+          - '1735265967704'
+          - text
+          variable: text
+        - value_selector:
+          - '1735265972631'
+          - text
+          variable: text
+        - value_selector:
+          - '1735265989596'
+          - text
+          variable: text
+        - value_selector:
+          - '1735265993808'
+          - text
+          variable: text
+        - value_selector:
+          - '1735265999311'
+          - text
+          variable: text
+        - value_selector:
+          - '1735266010843'
+          - text
+          variable: text
+        - value_selector:
+          - '1735266015071'
+          - text
+          variable: text
+        - value_selector:
+          - '1735266019542'
+          - text
+          variable: text
+        - value_selector:
+          - '1735266043297'
+          - text
+          variable: text
+        selected: false
+        title: 終了
+        type: end
+      height: 428
+      id: '1735265521852'
+      position:
+        x: 2267.7607810346813
+        y: 282
+      positionAbsolute:
+        x: 2267.7607810346813
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: gpt-4o-mini
+          provider: openai
+        prompt_template:
+        - id: 6bcdcd8a-ee29-4329-92bb-3c563deaa0d5
+          role: system
+          text: '# Task
+
+
+            記憶している内容に基づいて、{{#1735128762104.text#}} のセクション「2.1」 のテキストを作成するためのプロンプトを実行する
+
+
+            # Steps
+
+
+            1. 記憶している内容のうち、セクション「2.1」 のテーマに合致する関連部分を確認します。
+
+
+            2. テキストを論理的に構成し、既知のテーマに沿って明瞭性と一貫性を確保します。
+
+
+            3. {{#1735128762104.text#}} のセクション「2.1」 のテキストを作成するためのプロンプトを実行する
+
+
+            # Output Format
+
+
+            - **第 2 章: [第 2 章のテーマ名]**
+
+            - **2.1 [2.1 のテーマ名]**
+
+            - セクション 2.1 の詳細な説明を作成します。
+
+
+            # Notes
+
+
+            - 一貫性を維持するために、応答が記憶されている内容と厳密に一致していることを確認します。
+
+            - 詳細が不明な場合は、論理的推論を使用して、記憶されている内容に基づいて知識に基づいた仮定を立てます。'
+        selected: false
+        title: ２－１　出力
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 98
+      id: '1735265962091'
+      position:
+        x: 1251.8039704468003
+        y: 600.8490465062179
+      positionAbsolute:
+        x: 1251.8039704468003
+        y: 600.8490465062179
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: gpt-4o-mini
+          provider: openai
+        prompt_template:
+        - id: 0ee75ec1-096d-4c41-97c5-2e5ac75ccdfd
+          role: system
+          text: '# Task
+
+
+            記憶している内容に基づいて、{{#1735265962091.text#}}の続きとして、{{#1735128762104.text#}}
+            のセクション「2.2」 のテキストを作成するためのプロンプトを実行する
+
+
+            # Steps
+
+
+            1. 記憶している内容のうち、セクション「2.2」 のテーマに合致する関連部分を確認します。
+
+
+            2. {{#1735265962091.text#}}の内容を確認し、一貫性を確保します。
+
+
+            3. {{#1735128762104.text#}} のセクション「2.2」 のテキストを作成するためのプロンプトを実行する
+
+
+            # Output Format
+
+
+            - **2.2 [2.2 のテーマ名]**
+
+            - セクション 2.2 の詳細な説明を作成します。
+
+
+            # Notes
+
+
+            - 一貫性を維持するために、応答が記憶されている内容と厳密に一致していることを確認します。
+
+            - 詳細が不明な場合は、論理的推論を使用して、記憶されている内容に基づいて知識に基づいた仮定を立てます。'
+        selected: false
+        title: ２－２　出力
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 98
+      id: '1735265967704'
+      position:
+        x: 1511.116240575395
+        y: 600.8490465062179
+      positionAbsolute:
+        x: 1511.116240575395
+        y: 600.8490465062179
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: gpt-4o-mini
+          provider: openai
+        prompt_template:
+        - id: b8729c10-043a-4fa2-a8b5-52594b922ac8
+          role: system
+          text: '# Task
+
+
+            記憶している内容に基づいて、{{#1735265962091.text#}}と{{#1735265967704.text#}}の続きとして、{{#1735128762104.text#}}
+            のセクション「2.3」 のテキストを作成するためのプロンプトを実行する
+
+
+            # Steps
+
+
+            1. 記憶している内容のうち、セクション「2.3」 のテーマに合致する関連部分を確認します。
+
+
+            2.{{#1735265962091.text#}}と{{#1735265967704.text#}}の内容を確認し、一貫性を確保します。
+
+
+            3. {{#1735128762104.text#}} のセクション「2.3」 のテキストを作成するためのプロンプトを実行する
+
+
+            # Output Format
+
+
+            - **2.3 [2.3 のテーマ名]**
+
+            - セクション 2.3 の詳細な説明を作成します。
+
+
+            # Notes
+
+
+            - 一貫性を維持するために、応答が記憶されている内容と厳密に一致していることを確認します。
+
+            - 詳細が不明な場合は、論理的推論を使用して、記憶されている内容に基づいて知識に基づいた仮定を立てます。'
+        selected: false
+        title: ２－３　出力
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 98
+      id: '1735265972631'
+      position:
+        x: 1770.3975922275954
+        y: 600.8490465062179
+      positionAbsolute:
+        x: 1770.3975922275954
+        y: 600.8490465062179
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: gpt-4o-mini
+          provider: openai
+        prompt_template:
+        - id: 05a2c4d7-c2c5-4cae-8767-cbf95ad02727
+          role: system
+          text: '# Task
+
+
+            記憶している内容に基づいて、{{#1735128762104.text#}} のセクション「3.1」 のテキストを作成するためのプロンプトを実行する
+
+
+            # Steps
+
+
+            1. 記憶している内容のうち、セクション「3.1」 のテーマに合致する関連部分を確認します。
+
+
+            2. テキストを論理的に構成し、既知のテーマに沿って明瞭性と一貫性を確保します。
+
+
+            3. {{#1735128762104.text#}} のセクション「3.1」 のテキストを作成するためのプロンプトを実行する
+
+
+            # Output Format
+
+
+            - **第 3 章: [第 3 章のテーマ名]**
+
+            - **3.1 [3.1 のテーマ名]**
+
+            - セクション 3.1 の詳細な説明を作成します。
+
+
+            # Notes
+
+
+            - 一貫性を維持するために、応答が記憶されている内容と厳密に一致していることを確認します。
+
+            - 詳細が不明な場合は、論理的推論を使用して、記憶されている内容に基づいて知識に基づいた仮定を立てます。'
+        selected: false
+        title: ３－１　出力
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 98
+      id: '1735265989596'
+      position:
+        x: 1251.8039704468003
+        y: 736.8490465062179
+      positionAbsolute:
+        x: 1251.8039704468003
+        y: 736.8490465062179
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: gpt-4o-mini
+          provider: openai
+        prompt_template:
+        - id: 4622d4e6-8597-40da-8915-b47e49c03382
+          role: system
+          text: '# Task
+
+
+            記憶している内容に基づいて、{{#1735265989596.text#}}の続きとして、{{#1735128762104.text#}}
+            のセクション「3.2」 のテキストを作成するためのプロンプトを実行する
+
+
+            # Steps
+
+
+            1. 記憶している内容のうち、セクション「3.2」 のテーマに合致する関連部分を確認します。
+
+
+            2. {{#1735265989596.text#}}の内容を確認し、一貫性を確保します。
+
+
+            3. {{#1735128762104.text#}} のセクション「3.2」 のテキストを作成するためのプロンプトを実行する
+
+
+            # Output Format
+
+
+            - **3.2 [3.2 のテーマ名]**
+
+            - セクション 3.2 の詳細な説明を作成します。
+
+
+            # Notes
+
+
+            - 一貫性を維持するために、応答が記憶されている内容と厳密に一致していることを確認します。
+
+            - 詳細が不明な場合は、論理的推論を使用して、記憶されている内容に基づいて知識に基づいた仮定を立てます。'
+        selected: false
+        title: ３－２　出力
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 98
+      id: '1735265993808'
+      position:
+        x: 1511.116240575395
+        y: 736.8490465062179
+      positionAbsolute:
+        x: 1511.116240575395
+        y: 736.8490465062179
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: gpt-4o-mini
+          provider: openai
+        prompt_template:
+        - id: fc152c3c-eae7-4e23-b41c-25b97c4cd3f8
+          role: system
+          text: '# Task
+
+
+            記憶している内容に基づいて、{{#1735265989596.text#}}と{{#1735265993808.text#}}の続きとして、{{#1735128762104.text#}}
+            のセクション「3.3」 のテキストを作成するためのプロンプトを実行する
+
+
+            # Steps
+
+
+            1. 記憶している内容のうち、セクション「3.3」 のテーマに合致する関連部分を確認します。
+
+
+            2.{{#1735265989596.text#}}と{{#1735265993808.text#}}の内容を確認し、一貫性を確保します。
+
+
+            3. {{#1735128762104.text#}} のセクション「3.3」 のテキストを作成するためのプロンプトを実行する
+
+
+            # Output Format
+
+
+            - **3.3 [3.3 のテーマ名]**
+
+            - セクション 3.3 の詳細な説明を作成します。
+
+
+            # Notes
+
+
+            - 一貫性を維持するために、応答が記憶されている内容と厳密に一致していることを確認します。
+
+            - 詳細が不明な場合は、論理的推論を使用して、記憶されている内容に基づいて知識に基づいた仮定を立てます。'
+        selected: false
+        title: ３－３　出力
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 98
+      id: '1735265999311'
+      position:
+        x: 1770.3975922275954
+        y: 736.8490465062179
+      positionAbsolute:
+        x: 1770.3975922275954
+        y: 736.8490465062179
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: gpt-4o-mini
+          provider: openai
+        prompt_template:
+        - id: 0ea2eaf7-035c-41d5-99e6-aa954361e843
+          role: system
+          text: '# Task
+
+
+            記憶している内容に基づいて、{{#1735128762104.text#}} のセクション「4.1」 のテキストを作成するためのプロンプトを実行する
+
+
+            # Steps
+
+
+            1. 記憶している内容のうち、セクション「4.1」 のテーマに合致する関連部分を確認します。
+
+
+            2. テキストを論理的に構成し、既知のテーマに沿って明瞭性と一貫性を確保します。
+
+
+            3. {{#1735128762104.text#}} のセクション「4.1」 のテキストを作成するためのプロンプトを実行する
+
+
+            # Output Format
+
+
+            - **第 4 章: [第 4 章のテーマ名]**
+
+            - **4.1 [4.1 のテーマ名]**
+
+            - セクション 4.1 の詳細な説明を作成します。
+
+
+            # Notes
+
+
+            - 一貫性を維持するために、応答が記憶されている内容と厳密に一致していることを確認します。
+
+            - 詳細が不明な場合は、論理的推論を使用して、記憶されている内容に基づいて知識に基づいた仮定を立てます。'
+        selected: false
+        title: ４－１　出力
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 98
+      id: '1735266010843'
+      position:
+        x: 1251.8039704468003
+        y: 872.8490465062179
+      positionAbsolute:
+        x: 1251.8039704468003
+        y: 872.8490465062179
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: gpt-4o-mini
+          provider: openai
+        prompt_template:
+        - id: 08308fc1-7383-4d75-b94c-1fcbb1522e75
+          role: system
+          text: '# Task
+
+
+            記憶している内容に基づいて、{{#1735266010843.text#}}の続きとして、{{#1735128762104.text#}}
+            のセクション「4.2」 のテキストを作成するためのプロンプトを実行する
+
+
+            # Steps
+
+
+            1. 記憶している内容のうち、セクション「4.2」 のテーマに合致する関連部分を確認します。
+
+
+            2. {{#1735266010843.text#}}の内容を確認し、一貫性を確保します。
+
+
+            3. {{#1735128762104.text#}} のセクション「4.2」 のテキストを作成するためのプロンプトを実行する
+
+
+            # Output Format
+
+
+            - **4.2 [4.2 のテーマ名]**
+
+            - セクション 4.2 の詳細な説明を作成します。
+
+
+            # Notes
+
+
+            - 一貫性を維持するために、応答が記憶されている内容と厳密に一致していることを確認します。
+
+            - 詳細が不明な場合は、論理的推論を使用して、記憶されている内容に基づいて知識に基づいた仮定を立てます。'
+        selected: false
+        title: ４－２　出力
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 98
+      id: '1735266015071'
+      position:
+        x: 1511.116240575395
+        y: 872.8490465062179
+      positionAbsolute:
+        x: 1511.116240575395
+        y: 872.8490465062179
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: gpt-4o-mini
+          provider: openai
+        prompt_template:
+        - id: 00c28142-7ce3-4a04-a8b8-47b8e5f00a2e
+          role: system
+          text: '# Task
+
+
+            記憶している内容に基づいて、{{#1735266010843.text#}}と{{#1735266015071.text#}}の続きとして、{{#1735128762104.text#}}
+            のセクション「4.3」 のテキストを作成するためのプロンプトを実行する
+
+
+            # Steps
+
+
+            1. 記憶している内容のうち、セクション「4.3」 のテーマに合致する関連部分を確認します。
+
+
+            2.{{#1735266010843.text#}}と{{#1735266015071.text#}}の内容を確認し、一貫性を確保します。
+
+
+            3. {{#1735128762104.text#}} のセクション「4.3」 のテキストを作成するためのプロンプトを実行する
+
+
+            # Output Format
+
+
+            - **4.3 [4.3 のテーマ名]**
+
+            - セクション 4.3 の詳細な説明を作成します。
+
+
+            # Notes
+
+
+            - 一貫性を維持するために、応答が記憶されている内容と厳密に一致していることを確認します。
+
+            - 詳細が不明な場合は、論理的推論を使用して、記憶されている内容に基づいて知識に基づいた仮定を立てます。'
+        selected: false
+        title: ４－３　出力
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 98
+      id: '1735266019542'
+      position:
+        x: 1770.3975922275954
+        y: 872.8490465062179
+      positionAbsolute:
+        x: 1770.3975922275954
+        y: 872.8490465062179
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: gpt-4o-mini
+          provider: openai
+        prompt_template:
+        - id: e0a1d982-6e61-4bc7-987b-a835fb2a893a
+          role: system
+          text: '記憶している内容と{{#1735128750294.text#}}の内容を参考に、{{#1735128762104.text#}}の「おわりに」を作成するためのプロンプトを実行する
+
+
+            # Output Format
+
+
+            - **おわりに**
+
+            - おわりにの詳細な説明を作成します。'
+        selected: true
+        title: おわりに　出力
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 98
+      id: '1735266043297'
+      position:
+        x: 1770.3975922275954
+        y: 1055.6637091053265
+      positionAbsolute:
+        x: 1770.3975922275954
+        y: 1055.6637091053265
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    viewport:
+      x: -803.2536485355542
+      y: -230.80067529468033
+      zoom: 0.8366925989153364
