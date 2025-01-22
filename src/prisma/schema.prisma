@@ -12,15 +12,7 @@ model User {
   clerkId     String       @unique
   usageCount  Int          @default(0)
   usageLimit  Int          @default(10)
-  pass        String?
-  manuscripts Manuscript[]
-}
-
-model Manuscript {
-  id        String   @id @default(cuid())
-  userId    String
-  user      User     @relation(fields: [userId], references: [id])
-  title     String
-  content   String
-  createdAt DateTime @default(now())
+  name        String
+  email       String
+  imageUrl    String
 }

@@ -22,7 +22,6 @@ export const fetchUserByClerkId = async (clerkId: string | null) => {
 	}
 };
 
-
 export async function getUserData() {
 	const { userId } = await auth();
 

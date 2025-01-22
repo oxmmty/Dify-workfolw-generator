@@ -2,7 +2,8 @@ import './globals.css';
 import { Inter } from 'next/font/google';
 import { ClerkProvider } from '@clerk/nextjs';
 import { Navbar } from '@/components/layout/navbar';
-import AfterSignUpHandler from '@/components/auth/signup-handler';
+import { checkUser } from '@/lib/check-user';
+// import AfterSignUpHandler from '@/components/auth/signup-handler';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -11,18 +12,19 @@ export const metadata = {
 	description: 'AIを使用してテキストまたはPDFファイルから原稿を生成する',
 };
 
-export default function RootLayout({
+export default async function RootLayout({
 	children,
 }: {
 	children: React.ReactNode;
 }) {
+	await checkUser();
 	return (
 		<ClerkProvider>
 			<html lang='en' className='dark'>
 				<body className={`${inter.className} bg-background text-foreground`}>
 					<Navbar />
 					<main className='container mx-auto px-4 py-8'>{children}</main>
-					<AfterSignUpHandler />
+					{/* <AfterSignUpHandler /> */}
 				</body>
 			</html>
 		</ClerkProvider>

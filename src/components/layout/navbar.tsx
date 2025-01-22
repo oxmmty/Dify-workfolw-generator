@@ -77,7 +77,6 @@ export function Navbar() {
 
 	const navItems = [
 		{ href: '/dashboard', icon: FileText, label: 'ダッシュボード' },
-		{ href: '/pricing', icon: CreditCard, label: '料金プラン' },
 	];
 
 	return (
@@ -89,7 +88,6 @@ export function Navbar() {
 			>
 				<div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
 					<div className='flex items-center justify-between h-16'>
-						{/* ロゴとブランド */}
 						<div className='flex items-center'>
 							<Link href='/' className='flex items-center space-x-2'>
 								<BookOpen className='h-6 w-6 text-blue-600' />
@@ -97,8 +95,6 @@ export function Navbar() {
 									原稿AI
 								</span>
 							</Link>
-
-							{/* デスクトップナビゲーション */}
 							<SignedIn>
 								<div className='hidden md:flex ml-10 items-center space-x-2'>
 									{navItems.map((item) => (
@@ -110,8 +106,6 @@ export function Navbar() {
 								</div>
 							</SignedIn>
 						</div>
-
-						{/* デスクトップ認証セクション */}
 						<div className='hidden md:flex items-center space-x-4'>
 							<SignedIn>
 								<div className='flex items-center space-x-4'>
@@ -126,7 +120,6 @@ export function Navbar() {
 								</div>
 							</SignedIn>
 							<SignedOut>
-								<NavLink href='/pricing'>料金プラン</NavLink>
 								<SignInButton mode='modal'>
 									<button className='inline-flex items-center px-4 py-2 rounded-lg text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2'>
 										ログイン
@@ -134,8 +127,6 @@ export function Navbar() {
 								</SignInButton>
 							</SignedOut>
 						</div>
-
-						{/* モバイルメニューボタン */}
 						<button
 							onClick={() => setIsOpen(!isOpen)}
 							type='button'
@@ -155,8 +146,6 @@ export function Navbar() {
 						</button>
 					</div>
 				</div>
-
-				{/* モバイルメニューオーバーレイ */}
 				{isOpen && (
 					<div
 						className='fixed inset-0 bg-black bg-opacity-50 md:hidden'
@@ -164,8 +153,6 @@ export function Navbar() {
 						onClick={() => setIsOpen(false)}
 					/>
 				)}
-
-				{/* モバイルメニュー */}
 				<div
 					id='mobile-menu'
 					className={`transform transition-all duration-300 ease-in-out md:hidden fixed inset-y-0 right-0 w-64 bg-white shadow-xl ${
@@ -194,8 +181,6 @@ export function Navbar() {
 							</NavLink>
 						))}
 					</div>
-
-					{/* モバイル認証セクション */}
 					<div className='absolute bottom-0 w-full pt-4 pb-3 border-t border-gray-200 bg-gray-50'>
 						<div className='px-4 flex items-center justify-between'>
 							<SignedIn>
