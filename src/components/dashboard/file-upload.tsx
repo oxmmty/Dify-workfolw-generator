@@ -1,22 +1,23 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { Upload, Loader, AlertCircle, Info } from 'lucide-react';
+import { Upload, Loader, AlertCircle } from 'lucide-react';
 import {
 	uploadFile,
 	runWorkflow,
-	getWorkflowRunDetail,
-	createManuscriptAndUpdateUsage,
 	checkUsageLimit,
 } from '@/app/actions/actions';
 import { ManuscriptOutput } from './manuscript-output';
+import { useUser } from '@clerk/nextjs';
 
 export function FileUpload() {
+	const { user } = useUser();
+
 	const [file, setFile] = useState<File | null>(null);
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState<string | null>(null);
-	const [result, setResult] = useState<any | null>(null);
+	const [result, setResult] = useState<string>('');
 	const router = useRouter();
 	const [usageStatus, setUsageStatus] = useState<{
 		canGenerate: boolean;
@@ -61,65 +62,27 @@ export function FileUpload() {
 
 			setIsLoading(true);
 			setError(null);
-			setResult(null);
+			setResult('');
 
 			const formData = new FormData();
 			formData.append('file', file);
-			formData.append('user', 'test-user');
+			formData.append('user', user?.fullName ?? 'Unknown User');
 
 			const uploadResult = await uploadFile(formData);
-			console.log('Upload result:', uploadResult);
+			const stream = await runWorkflow(
+				uploadResult.id,
+				user?.fullName ?? 'Unknown User'
+			);
 
-			const workflowResult = await runWorkflow(uploadResult.id, 'test-user');
-			console.log('Workflow result:', workflowResult);
+			const reader = stream.getReader();
+			let accumulatedContent = '';
 
-			let finalResult;
-			if (workflowResult.status === 'running') {
-				finalResult = await pollWorkflowResult(workflowResult.workflow_run_id);
-			} else {
-				finalResult = workflowResult;
-			}
-			console.log('Final result:', finalResult);
-
-			setResult(finalResult);
-
-			if (finalResult?.data?.outputs?.text) {
-				const manuscriptData = finalResult.data.outputs.text;
-				console.log('Manuscript data:', manuscriptData);
-
-				if (typeof manuscriptData === 'string') {
-					const lines = manuscriptData.split('\n');
-					const title = lines[0].replace(/^#\s*/, '');
-					const content = lines.slice(1).join('\n').trim();
-
-					try {
-						const updatedUser = await createManuscriptAndUpdateUsage(
-							title,
-							content
-						);
-						console.log('Updated user:', updatedUser);
-					} catch (createError) {
-						console.error('Error creating manuscript:', createError);
-						setError('原稿の保存に失敗しました。もう一度お試しください。');
-					}
-				} else if (manuscriptData.title && manuscriptData.content) {
-					try {
-						const updatedUser = await createManuscriptAndUpdateUsage(
-							manuscriptData.title,
-							manuscriptData.content
-						);
-						console.log('Updated user:', updatedUser);
-					} catch (createError) {
-						console.error('Error creating manuscript:', createError);
-						setError('原稿の保存に失敗しました。もう一度お試しください。');
-					}
-				} else {
-					console.error('Invalid manuscript data:', manuscriptData);
-					setError('無効な原稿データを受信しました。もう一度お試しください。');
-				}
-			} else {
-				console.error('No formatted manuscript in result:', finalResult);
-				setError('文書の処理に失敗しました。もう一度お試しください。');
+			while (true) {
+				const { done, value } = await reader.read();
+				if (done) break;
+				const text = new TextDecoder().decode(value);
+				accumulatedContent += text;
+				setResult(accumulatedContent);
 			}
 
 			router.refresh();
@@ -135,130 +98,100 @@ export function FileUpload() {
 		}
 	};
 
-	const pollWorkflowResult = async (
-		workflowRunId: string,
-		maxAttempts = 10
-	): Promise<any> => {
-		for (let i = 0; i < maxAttempts; i++) {
-			const result = await getWorkflowRunDetail(workflowRunId);
-			if (result.status !== 'running') {
-				return result;
-			}
-			await new Promise((resolve) => setTimeout(resolve, 2000));
-		}
-		throw new Error('ワークフローの実行がタイムアウトしました');
-	};
-
 	return (
-		<div className='h-screen bg-gray-50'>
-			<div className='h-16 bg-white border-b flex items-center px-6'>
-				<h1 className='text-xl font-semibold text-gray-800'>文書処理</h1>
-			</div>
-
-			<div className='h-[calc(100vh-4rem)] flex'>
-				<div className='w-96 bg-white'>
-					<div className='h-full flex flex-col'>
-						<div className='p-6'>
-							<h2 className='text-lg font-medium text-gray-800 mb-4'>
-								文書をアップロード
-							</h2>
-							<form onSubmit={handleSubmit} className='space-y-4'>
-								<div className='flex items-center justify-center w-full'>
-									<label
-										htmlFor='dropzone-file'
-										className='flex flex-col items-center justify-center w-full h-48 border-2 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100 transition-all duration-200'
-									>
-										<div className='flex flex-col items-center justify-center pt-5 pb-6'>
-											<Upload className='w-8 h-8 mb-3 text-gray-400' />
-											<p className='mb-2 text-sm text-gray-500'>
-												<span className='font-semibold'>
-													クリックしてアップロード
-												</span>{' '}
-												またはドラッグ＆ドロップ
-											</p>
-											<p className='text-xs text-gray-500'>
-												PDFまたはTXT（最大10MB）
-											</p>
-										</div>
-										<input
-											id='dropzone-file'
-											type='file'
-											className='hidden'
-											onChange={handleFileChange}
-											accept='.txt,.pdf'
-										/>
-									</label>
-								</div>
-								{file && (
-									<div className='p-3 bg-blue-50 rounded-md border border-blue-100'>
-										<p className='text-sm text-blue-700'>
-											選択済み: <span className='font-medium'>{file.name}</span>
+		<main className='h-[calc(100vh-4rem)] flex'>
+			<section className='w-96'>
+				<div className='h-full flex flex-col border rounded-lg'>
+					<div className='p-6'>
+						<h2 className='text-lg font-medium text-gray-800 mb-4'>
+							文書をアップロード
+						</h2>
+						<form onSubmit={handleSubmit} className='space-y-4'>
+							<div className='flex items-center justify-center w-full'>
+								<label
+									htmlFor='dropzone-file'
+									className='flex flex-col items-center justify-center w-full h-48 border-2 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100 transition-all duration-200'
+								>
+									<div className='flex flex-col items-center justify-center pt-5 pb-6'>
+										<Upload className='w-8 h-8 mb-3 text-gray-400' />
+										<p className='mb-2 text-sm text-gray-500'>
+											<span className='font-semibold'>
+												クリックしてアップロード
+											</span>{' '}
+											またはドラッグ＆ドロップ
+										</p>
+										<p className='text-xs text-gray-500'>
+											PDFまたはTXT（最大10MB）
 										</p>
 									</div>
-								)}
-								<button
-									type='submit'
-									disabled={!file || isLoading}
-									className='w-full px-4 py-2.5 text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200 font-medium'
-								>
-									{isLoading ? (
-										<div className='flex items-center justify-center'>
-											<Loader className='w-4 h-4 mr-2 animate-spin' />
-											<span>処理中...</span>
-										</div>
-									) : (
-										'文書を処理'
-									)}
-								</button>
-							</form>
-						</div>
-
-						<div className='px-6 pb-6 overflow-y-auto'>
-							{error && (
-								<div className='mt-4 p-4 bg-red-50 border border-red-200 text-red-700 rounded-lg flex items-start'>
-									<AlertCircle className='w-5 h-5 mr-2 flex-shrink-0 mt-0.5' />
-									<div>
-										<p className='font-medium'>エラー</p>
-										<p className='text-sm mt-1'>{error}</p>
-										{error.includes('not published') && (
-											<div className='mt-2 p-2 bg-yellow-50 border border-yellow-200 text-yellow-700 rounded-md flex items-start'>
-												<Info className='w-4 h-4 mr-2 flex-shrink-0 mt-0.5' />
-												<p className='text-sm'>
-													ワークフローを公開するには、Difyアカウントにアクセスし、ワークフローを選択して「公開」ボタンをクリックしてください。
-												</p>
-											</div>
-										)}
-									</div>
+									<input
+										id='dropzone-file'
+										type='file'
+										className='hidden'
+										onChange={handleFileChange}
+										accept='.txt,.pdf'
+									/>
+								</label>
+							</div>
+							{file && (
+								<div className='p-3 bg-blue-50 rounded-md border border-blue-100'>
+									<p className='text-sm text-blue-700'>
+										選択済み: <span className='font-medium'>{file.name}</span>
+									</p>
 								</div>
 							)}
-						</div>
-					</div>
-				</div>
-
-				<div className='flex-1 overflow-hidden'>
-					<div className='h-full border-[1px] overflow-y-auto px-6 py-6'>
-						{result?.data?.outputs?.text ? (
-							<ManuscriptOutput
-								manuscript={result.data.outputs.text}
-							/>
-						) : (
-							<div className='h-ful flex items-center justify-center'>
-								<div className='text-center'>
-									<div className='flex justify-center'>
-										<Upload className='w-12 h-12 text-gray-300' />
+							<button
+								type='submit'
+								disabled={!file || isLoading}
+								className='w-full px-4 py-2.5 text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200 font-medium'
+							>
+								{isLoading ? (
+									<div className='flex items-center justify-center'>
+										<Loader className='w-4 h-4 mr-2 animate-spin' />
+										<span>原稿生成中...</span>
 									</div>
-									<h3 className='mt-4 text-lg font-medium text-gray-700'>
-										処理済みの文書がありません
-									</h3>
-									<p className='mt-2 text-gray-500'>
-										文書をアップロードすると、ここに生成された原稿が表示されます
-									</p>
+								) : (
+									'原稿を生成'
+								)}
+							</button>
+						</form>
+					</div>
+
+					<div className='px-6 pb-6 overflow-y-auto'>
+						{error && (
+							<div className='mt-4 p-4 bg-red-50 border border-red-200 text-red-700 rounded-lg flex items-start'>
+								<AlertCircle className='w-5 h-5 mr-2 flex-shrink-0 mt-0.5' />
+								<div>
+									<p className='font-medium'>エラー</p>
+									<p className='text-sm mt-1'>{error}</p>
 								</div>
 							</div>
 						)}
 					</div>
 				</div>
-			</div>
-		</div>
+			</section>
+
+			<section className='flex-1 overflow-hidden'>
+				<div className='h-full  overflow-y-auto px-6 '>
+					{result ? (
+						<ManuscriptOutput manuscript={result} isLoading={isLoading} />
+					) : (
+						<div className='h-full flex items-center justify-center'>
+							<div className='text-center'>
+								<div className='flex justify-center'>
+									<Upload className='w-12 h-12 text-gray-300' />
+								</div>
+								<h3 className='mt-4 text-lg font-medium text-gray-700'>
+									生成された原稿がありません
+								</h3>
+								<p className='mt-2 text-gray-500'>
+									文書をアップロードすると、ここに生成された書籍原稿が表示されます
+								</p>
+							</div>
+						</div>
+					)}
+				</div>
+			</section>
+		</main>
 	);
 }
