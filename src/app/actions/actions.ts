@@ -92,6 +92,19 @@ export async function runWorkflow(
 	}
 	await updateUsage();
 
+	// Define section order
+	const sectionOrder = [
+		'Introduction',
+		...Array.from({ length: 4 }, (_, chapterIndex) => [
+			`Chapter ${chapterIndex + 1}`,
+			...Array.from(
+				{ length: 3 },
+				(_, sectionIndex) => `${chapterIndex + 1}.${sectionIndex + 1}`
+			),
+		]).flat(),
+		'Conclusion',
+	];
+
 	return new ReadableStream({
 		async start(controller) {
 			const reader = response.body?.getReader();
@@ -103,6 +116,8 @@ export async function runWorkflow(
 
 			let buffer = '';
 			let chunkCount = 0;
+			const chunks: { text: string; section: string; index: number }[] = [];
+
 			while (true) {
 				const { done, value } = await reader.read();
 				if (done) break;
@@ -119,17 +134,34 @@ export async function runWorkflow(
 						try {
 							const jsonStr = line.slice(6);
 							const data = JSON.parse(jsonStr);
-							const outputs = data.data;
-							console.log({ outputs });
+
 							if (
 								data.event === 'node_finished' &&
 								data.data.node_type === 'llm'
 							) {
 								chunkCount++;
 								if (chunkCount > 2) {
-									controller.enqueue(
-										new TextEncoder().encode(data.data.outputs.text || '')
-									);
+									const text = data.data.outputs.text || '';
+									const section =
+										sectionOrder.find((s) => text.includes(s)) || '';
+									const sectionIndex = sectionOrder.indexOf(section);
+
+									chunks.push({
+										text,
+										section,
+										index: sectionIndex,
+									});
+
+									chunks.sort((a, b) => a.index - b.index);
+
+									while (chunks.length > 0 && chunks[0].index !== -1) {
+										const nextChunk = chunks.shift();
+										if (nextChunk) {
+											controller.enqueue(
+												new TextEncoder().encode(nextChunk.text)
+											);
+										}
+									}
 								}
 							}
 						} catch (error) {
@@ -138,6 +170,13 @@ export async function runWorkflow(
 					}
 				}
 			}
+
+			// Output any remaining chunks in order
+			chunks.sort((a, b) => a.index - b.index);
+			for (const chunk of chunks) {
+				controller.enqueue(new TextEncoder().encode(chunk.text));
+			}
+
 			controller.close();
 		},
 	});
