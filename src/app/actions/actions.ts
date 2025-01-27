@@ -95,12 +95,14 @@ export async function runWorkflow(
 	return new ReadableStream({
 		async start(controller) {
 			const reader = response.body?.getReader();
+
 			if (!reader) {
 				controller.close();
 				return;
 			}
 
 			let buffer = '';
+			let chunkCount = 0;
 			while (true) {
 				const { done, value } = await reader.read();
 				if (done) break;
@@ -117,13 +119,18 @@ export async function runWorkflow(
 						try {
 							const jsonStr = line.slice(6);
 							const data = JSON.parse(jsonStr);
+							const outputs = data.data;
+							console.log({ outputs });
 							if (
 								data.event === 'node_finished' &&
 								data.data.node_type === 'llm'
 							) {
-								controller.enqueue(
-									new TextEncoder().encode(data.data.outputs.text || '')
-								);
+								chunkCount++;
+								if (chunkCount > 2) {
+									controller.enqueue(
+										new TextEncoder().encode(data.data.outputs.text || '')
+									);
+								}
 							}
 						} catch (error) {
 							console.error('Error parsing JSON:', error);
