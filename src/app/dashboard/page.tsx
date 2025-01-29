@@ -3,8 +3,8 @@ import UsageInfo from '@/components/dashboard/usage-info';
 
 export default async function Dashboard() {
 	return (
-		<main className='min-h-screen mt-8'>
-			<div className='max-w-[1500px] mx-auto px-4 py-8'>
+		<main className='min-h-svh mt-8'>
+			<section className='max-w-[1500px] mx-auto py-8'>
 				<div className='grid grid-cols-12 gap-6'>
 					<div className='col-span-12'>
 						<div className='bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden'>
@@ -18,16 +18,15 @@ export default async function Dashboard() {
 									</p>
 								</div>
 							</div>
-							<div className='p-6'>
+							<div className='p-2 md:p-6'>
 								<FileUpload />
-								<div className='mt-6'>
-									<UsageInfo />
-								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-			</div>
+			</section>
+
+			<UsageInfo />
 		</main>
 	);
 }

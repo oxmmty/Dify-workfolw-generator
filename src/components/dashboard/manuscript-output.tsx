@@ -101,8 +101,8 @@ export function ManuscriptOutput({
 	};
 
 	return (
-		<div className='min-h-screen'>
-			<div className='sticky top-0 z-10'>
+		<div>
+			<div className='sticky top-4 md:top-0 z-10'>
 				<div className='bg-white/90 backdrop-blur-md border rounded-lg border-gray-200'>
 					<div className='max-w-7xl mx-auto'>
 						<div className='px-6 py-4 flex justify-between items-center'>
@@ -124,7 +124,7 @@ export function ManuscriptOutput({
 
 			<main className='max-w-7xl mx-auto py-8'>
 				<div className='bg-white rounded-2xl shadow-xl ring-1 ring-gray-100 overflow-hidden'>
-					<div className='p-8'>
+					<div className='md:p-6'>
 						<div className='prose prose-lg max-w-none break-words prose-headings:font-bold prose-headings:text-gray-900 prose-p:text-gray-600 prose-p:leading-relaxed prose-a:text-blue-600 prose-strong:text-gray-900 prose-blockquote:border-l-4 prose-blockquote:border-blue-500 prose-blockquote:bg-blue-50 prose-blockquote:py-1 prose-blockquote:px-4 prose-blockquote:rounded-r-lg space-y-6'>
 							<ReactMarkdown
 								components={{

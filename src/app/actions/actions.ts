@@ -1,11 +1,9 @@
 'use server';
 
+import { API_KEY, API_URL } from '@/lib/config';
 import { db } from '@/lib/db';
 import { getUserData } from '@/lib/user';
 import { auth } from '@clerk/nextjs/server';
-
-const API_KEY = process.env.DIFY_API_KEY;
-const API_URL = process.env.DIFY_API_URL;
 
 export async function checkUsageLimit() {
 	const { userId } = await auth();
