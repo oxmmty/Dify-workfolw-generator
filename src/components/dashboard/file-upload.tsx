@@ -5,15 +5,14 @@ import { useRouter } from 'next/navigation';
 import { Upload, Loader, AlertCircle } from 'lucide-react';
 import {
 	uploadFile,
-	runWorkflow,
 	checkUsageLimit,
+	updateUsage,
 } from '@/app/actions/actions';
 import { ManuscriptOutput } from './manuscript-output';
 import { useUser } from '@clerk/nextjs';
 
 export function FileUpload() {
 	const { user } = useUser();
-
 	const [file, setFile] = useState<File | null>(null);
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState<string | null>(null);
@@ -69,20 +68,71 @@ export function FileUpload() {
 			formData.append('user', user?.fullName ?? 'Unknown User');
 
 			const uploadResult = await uploadFile(formData);
-			const stream = await runWorkflow(
-				uploadResult.id,
-				user?.fullName ?? 'Unknown User'
-			);
 
-			const reader = stream.getReader();
-			let accumulatedContent = '';
+			const response = await fetch('https://api.dify.ai/v1/workflows/run', {
+				method: 'POST',
+				headers: {
+					Authorization: `Bearer app-3F9WxPmNfdQEAo1JByMPnIpq`,
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({
+					inputs: {
+						knowledge: {
+							transfer_method: 'local_file',
+							upload_file_id: uploadResult.id,
+							type: 'document',
+						},
+					},
+					response_mode: 'streaming',
+					user: user?.fullName ?? 'Unknown User',
+				}),
+			});
+
+			if (!response.ok) {
+				throw new Error(`Streaming failed: ${response.status}`);
+			}
+
+			if (!response.body) throw new Error('No response body');
+
+			const reader = response.body.getReader();
+			const decoder = new TextDecoder();
+			let buffer = '';
 
 			while (true) {
 				const { done, value } = await reader.read();
 				if (done) break;
-				const text = new TextDecoder().decode(value);
-				accumulatedContent += text;
-				setResult(accumulatedContent);
+
+				buffer += decoder.decode(value, { stream: true });
+				const lines = buffer.split('\n\n');
+				buffer = lines.pop() || '';
+
+				for (const line of lines) {
+					if (line.startsWith('data: ')) {
+						try {
+							const eventData = JSON.parse(line.slice(6));
+							const messageContent =
+								eventData.data?.answer ||
+								eventData.data?.text ||
+								eventData.data?.message ||
+								'';
+
+							if (messageContent && eventData.event !== 'ping') {
+								setResult((prev) => prev + messageContent);
+							}
+						} catch (e) {
+							console.error('Failed to parse event data:', e);
+						}
+					}
+				}
+			}
+
+			if (response.ok) {
+				try {
+					await updateUsage();
+					console.log('Usage updated successfully');
+				} catch (error) {
+					console.error('Error updating usage:', error);
+				}
 			}
 
 			router.refresh();
