@@ -10,6 +10,7 @@ import {
 } from '@/app/actions/actions';
 import { ManuscriptOutput } from './manuscript-output';
 import { useUser } from '@clerk/nextjs';
+import { API_KEY } from '@/lib/config';
 
 export function FileUpload() {
 	const { user } = useUser();
@@ -72,7 +73,7 @@ export function FileUpload() {
 			const response = await fetch('https://api.dify.ai/v1/workflows/run', {
 				method: 'POST',
 				headers: {
-					Authorization: `Bearer app-3F9WxPmNfdQEAo1JByMPnIpq`,
+					Authorization: `Bearer ${API_KEY}`,
 					'Content-Type': 'application/json',
 				},
 				body: JSON.stringify({
@@ -149,10 +150,10 @@ export function FileUpload() {
 	};
 
 	return (
-		<main className='h-[calc(100vh-4rem)] flex'>
-			<section className='w-96'>
+		<main className='h-[calc(100vh-4rem)] flex flex-col md:flex-row'>
+			<section>
 				<div className='h-full flex flex-col border rounded-lg'>
-					<div className='p-6'>
+					<div className='p-2 md:p-6'>
 						<h2 className='text-lg font-medium text-gray-800 mb-4'>
 							文書をアップロード
 						</h2>
@@ -221,10 +222,12 @@ export function FileUpload() {
 				</div>
 			</section>
 
-			<section className='flex-1 overflow-hidden'>
-				<div className='h-full  overflow-y-auto px-6 '>
+			<section className='flex-1 min-h-screen'>
+				<div className='h-full overflow-y-auto md:px-6 '>
 					{result ? (
-						<ManuscriptOutput manuscript={result} isLoading={isLoading} />
+						<div className='mt-4 md:mt-0'>
+							<ManuscriptOutput manuscript={result} isLoading={isLoading} />
+						</div>
 					) : (
 						<div className='h-full flex items-center justify-center'>
 							<div className='text-center'>
