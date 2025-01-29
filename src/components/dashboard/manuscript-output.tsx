@@ -88,11 +88,12 @@ export function ManuscriptOutput({
 	isLoading,
 }: ManuscriptOutputProps) {
 	const handleDownload = async () => {
+		const date = new Date();
 		const blob = await pdf(<PDFDocument content={manuscript} />).toBlob();
 		const url = URL.createObjectURL(blob);
 		const link = document.createElement('a');
 		link.href = url;
-		link.download = 'manuscript.pdf';
+		link.download = `原稿-${date}.pdf`;
 		document.body.appendChild(link);
 		link.click();
 		document.body.removeChild(link);
@@ -127,24 +128,14 @@ export function ManuscriptOutput({
 						<div className='prose prose-lg max-w-none break-words prose-headings:font-bold prose-headings:text-gray-900 prose-p:text-gray-600 prose-p:leading-relaxed prose-a:text-blue-600 prose-strong:text-gray-900 prose-blockquote:border-l-4 prose-blockquote:border-blue-500 prose-blockquote:bg-blue-50 prose-blockquote:py-1 prose-blockquote:px-4 prose-blockquote:rounded-r-lg space-y-6'>
 							<ReactMarkdown
 								components={{
-									h1: ({ children }) => (
-										<h1 className='text-3xl font-bold mb-4'>{children}</h1>
+									h1: ({ node, ...props }) => (
+										<h1 className='text-3xl font-bold mt-6 mb-4' {...props} />
 									),
-									h2: ({ children }) => (
-										<h2 className='text-2xl font-bold mb-3'>{children}</h2>
+									h2: ({ node, ...props }) => (
+										<h2 className='text-2xl font-bold mt-5 mb-3' {...props} />
 									),
-									h3: ({ children }) => (
-										<h3 className='text-xl font-bold mb-2'>{children}</h3>
-									),
-									p: ({ children }) => (
-										<p className='text-gray-700 leading-relaxed mb-4'>
-											{children}
-										</p>
-									),
-									strong: ({ children }) => (
-										<strong className='font-bold text-gray-900'>
-											{children}
-										</strong>
+									h3: ({ node, ...props }) => (
+										<h3 className='text-xl font-bold mt-4 mb-2' {...props} />
 									),
 								}}
 							>
